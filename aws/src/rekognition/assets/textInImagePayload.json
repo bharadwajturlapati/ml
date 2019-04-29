@@ -1,0 +1,8 @@
+{
+  "Image": {
+    "S3Object": {
+      "Bucket": "rekognitionapis",
+      "Name": "coffee_monday_resized.jpg"
+    }
+  }
+}

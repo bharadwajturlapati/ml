@@ -1,0 +1,15 @@
+{
+  "TargetImage": {
+    "S3Object": {
+      "Bucket": "rekognitionapis",
+      "Name": "source3_resized.jpg"
+    }
+  },
+  "SourceImage": {
+    "S3Object": {
+      "Bucket": "rekognitionapis",
+      "Name": "target3_resized.jpg"
+    }
+  },
+  "SimilarityThreshold": 70
+}

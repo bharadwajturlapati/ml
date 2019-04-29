@@ -1,0 +1,4 @@
+**/.idea
+.idea/*/**
+aws/node_modules/*/**
+aws/src/awsUtils.js
