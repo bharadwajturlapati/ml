@@ -1,0 +1,8 @@
+{
+  "Image": {
+    "S3Object": {
+      "Bucket": "rekognitionapis",
+      "Name": "skateboard_resized.jpg"
+    }
+  }
+}

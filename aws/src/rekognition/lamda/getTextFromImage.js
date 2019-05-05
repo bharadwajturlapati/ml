@@ -1,10 +1,10 @@
 const AWS = require('aws-sdk/index');
 const rekognition = new AWS.Rekognition();
 
-const callMe = function(payload, resolve, reject){
+const getTextFromImage = function(payload, resolve, reject){
     var response = {
     };
-    rekognition.compareFaces(payload, function (err, data) {
+    rekognition.detectText(payload, function (err, data) {
         if (err) {
             response.statusCode = 500;
             response.data = JSON.stringify(err);
@@ -21,6 +21,6 @@ const callMe = function(payload, resolve, reject){
 
 exports.handler = async (event, context, callback) => {
     return new Promise((resolve, reject)=>{
-        callMe(event, resolve, reject);
+        getTextFromImage(event, resolve, reject);
     });
 };
