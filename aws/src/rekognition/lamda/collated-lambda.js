@@ -56,6 +56,24 @@ const getTextFromImage = function(event, resolve, reject){
     });
 };
 
+const detectFaces =  function(event, resolve, reject){
+    var response = {
+    };
+    rekognition.detectFaces(event.payload, function (err, data) {
+        if (err) {
+            response.statusCode = 500;
+            response.data = JSON.stringify(err);
+            response.err = true;
+            reject(response);
+        } else {
+            response.statusCode = 200;
+            response.data = JSON.stringify(data);
+            response.err = false;
+            resolve(response);
+        }
+    });
+};
+
 exports.handler = async (event, context, callback) => {
     var response = {
         "error":true,
@@ -68,7 +86,9 @@ exports.handler = async (event, context, callback) => {
             getTextFromImage(event, resolve, reject);
         } else if(event.action == "sceneDetection"){
             sceneDetection(event, resolve, reject);
-        } else{
+        } else if(event.action == "detectFaces"){
+            detectFaces(event, resolve, reject);
+        } else {
             reject(JSON.stringify(response));
         }
     });
