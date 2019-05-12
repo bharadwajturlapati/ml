@@ -1,3 +1,4 @@
+//dummy commit so that i dont miss the streak
 const AWS = require('aws-sdk/index');
 const rekognition = new AWS.Rekognition();
 
