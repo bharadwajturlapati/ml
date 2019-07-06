@@ -1,4 +1,3 @@
-//dummy commit so that i dont miss the streak
 const AWS = require('aws-sdk/index');
 const rekognition = new AWS.Rekognition();
 
@@ -7,14 +6,14 @@ const compareFaces = function(event, resolve, reject){
     };
     rekognition.compareFaces(event.payload, function (err, data) {
         if (err) {
-            console.log(err);
-            response.statusCode = 500;
-            response.data = JSON.stringify(err);
+            console.log("#####"+err);
+            response.statusCode = 400;
+            response.data = err;
             response.err = true;
-            reject(response);
+            resolve(response);
         } else {
             response.statusCode = 200;
-            response.data = JSON.stringify(data);
+            response.data = data;
             response.err = false;
             resolve(response);
         }
@@ -26,13 +25,13 @@ const sceneDetection = function(event, resolve, reject){
     };
     rekognition.detectLabels(event.payload, function (err, data) {
         if (err) {
-            response.statusCode = 500;
-            response.data = JSON.stringify(err);
+            response.statusCode = 400;
+            response.data = err;
             response.err = true;
-            reject(response);
+            resolve(response);
         } else {
             response.statusCode = 200;
-            response.data = JSON.stringify(data);
+            response.data = data;
             response.err = false;
             resolve(response);
         }
@@ -44,31 +43,13 @@ const getTextFromImage = function(event, resolve, reject){
     };
     rekognition.detectText(event.payload, function (err, data) {
         if (err) {
-            response.statusCode = 500;
-            response.data = JSON.stringify(err);
+            response.statusCode = 400;
+            response.data = err;
             response.err = true;
-            reject(response);
-        } else {
-            response.statusCode = 200;
-            response.data = JSON.stringify(data);
-            response.err = false;
             resolve(response);
-        }
-    });
-};
-
-const detectFaces =  function(event, resolve, reject){
-    var response = {
-    };
-    rekognition.detectFaces(event.payload, function (err, data) {
-        if (err) {
-            response.statusCode = 500;
-            response.data = JSON.stringify(err);
-            response.err = true;
-            reject(response);
         } else {
             response.statusCode = 200;
-            response.data = JSON.stringify(data);
+            response.data = data;
             response.err = false;
             resolve(response);
         }
@@ -87,10 +68,8 @@ exports.handler = async (event, context, callback) => {
             getTextFromImage(event, resolve, reject);
         } else if(event.action == "sceneDetection"){
             sceneDetection(event, resolve, reject);
-        } else if(event.action == "detectFaces"){
-            detectFaces(event, resolve, reject);
-        } else {
-            reject(JSON.stringify(response));
+        } else{
+            reject(response);
         }
     });
 };
